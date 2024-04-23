@@ -1,5 +1,11 @@
 # DBMS-Semester-Project
-
+## Key Entities:
+ * Users   
+ * Hashtags
+ * Photos
+ * Comments
+ * Likes
+ * Follower & Following
 ## Design-Schemas:
 
 ### 1. Users:
