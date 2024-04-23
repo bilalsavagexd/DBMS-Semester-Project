@@ -2,13 +2,13 @@
   <h1>Instagram Database Clone</h1>
 </div>
 
-<div>
-  <h2>Project Description:</h2>
+<div align="center">
+  <h2>Project-Description:</h2>
   <p>Tomorrows Work</p>
 </div>
 
 <div align="center">
-  <h2>Key Entities:</h2>
+  <h2>Key-Entities:</h2>
 </div>
 
    * Users   
