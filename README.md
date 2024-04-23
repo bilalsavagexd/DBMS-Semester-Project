@@ -1,6 +1,6 @@
 # DBMS-Semester-Project
 
-## Design Schemas:
+## Design-Schemas:
 
 ### 1. Users:
 
