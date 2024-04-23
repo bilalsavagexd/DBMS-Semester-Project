@@ -13,3 +13,7 @@
 ### 3. Comments:
 
 <img src="Schema Designs/Comments Schema.png" alt="User Schema Design">
+
+### 3. Likes:
+
+<img src="Schema Designs/Likes Schema.png" alt="User Schema Design">
