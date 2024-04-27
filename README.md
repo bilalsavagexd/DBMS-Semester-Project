@@ -1,5 +1,5 @@
 <div align="center">
-  <h1>Instagram Database Clone</h1>
+  <h1>Library Management System</h1>
 </div>
 
 <div align="center">
