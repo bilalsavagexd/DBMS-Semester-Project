@@ -42,7 +42,7 @@ Technology Stack Used:
 
 * ### TRANSACTIONS TABLE :
 <div align="center">
-<img src="Design Schematics/TRACKING TRANSACTIONS .png" alt="Photos Schema Design">
+<img src="Design Schematics/TRACKING TRANSACTIONS.png" alt="Photos Schema Design">
 </div>
 
 * ### AUTHENTICATION TABLE:
