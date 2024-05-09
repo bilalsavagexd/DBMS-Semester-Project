@@ -31,7 +31,7 @@
 
 * ### RETURN:
 <div align="center">
-    <img src="Design Schematics/RETURN.png" alt="Comments Schema Design">
+    <img src="Design Schematics/RETURNN.png" alt="Comments Schema Design">
 </div>
 
 * ### USER DETAILS:
