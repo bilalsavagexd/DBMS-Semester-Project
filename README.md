@@ -1,43 +1,56 @@
 <div align="center">
-  <h1>Library Management System</h1>
+  <h1>LIBRARY MANAGEMENT SYSTEM</h1>
 </div>
 
 <div align="center">
-  <h2>Project-Description:</h2>
-  <p>Tomorrows Work</p>
+  <h2>PROJECT DISCRIPTION</h2>
+</div>
+  <p>  ABSTRACT:
+
+Manual process of keeping student records, book records, account details, managing employee is very difficult. There are various problems also faced by the student in library such as finding any particular book. To eliminate this manual system, Library Management System has been developed.
+
+Core Features:
+- Searching of books
+- Issuing and returning books
+- Deleting a specific Book
+- Adding a new Book
+
+Technology Stack Used:
+- Front End - tbh
+- Back End - Python
+- Database - PostgresSQL </p>
 </div>
 
 <div align="center">
-  <h2>Key-Entities:</h2>
+  <h2>KEY ENTITIES:</h2>
 </div>
 
-   * BOOKS   
-   * ISSUE
-   * RETURN
-   * USER DETAILS
+   * BOOKS  
+   * TRANSACTION
+   * AUTHENTICATION
 <div align="center">
-  <h2>Design-Schemas:</h2>
+  <h2>DESIGN SCHEMATICS</h2>
+  
 </div>
-
-* ### BOOKS:
 <div align="center">
-<img src="Design Schematics/BOOKS.png" alt="User Schema Design">
 </div>
 
-* ### ISSUE:
+* ### BOOKS TABLE:
 <div align="center">
-<img src="Design Schematics/ISSUE.png" alt="Photos Schema Design">
+<img src="Design Schematics/STORING BOOKS.png" alt="User Schema Design">
 </div>
 
-* ### RETURN:
+* ### TRANSACTIONS TABLE :
 <div align="center">
-    <img src="Design Schematics/RETURNN.png" alt="Comments Schema Design">
+<img src="Design Schematics/TRACKING TRANSACTIONS .png" alt="Photos Schema Design">
 </div>
 
-* ### USER DETAILS:
+* ### AUTHENTICATION TABLE:
 <div align="center">
-<img src="Design Schematics/USER_DETAILS.png" alt="Likes Schema Design">
+    <img src="" alt="Comments Schema Design">
 </div>
 
 
-<h2>Er-Diagram:</h2>
+
+
+<h2>ER DIAGRAM</h2>
