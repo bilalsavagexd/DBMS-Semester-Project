@@ -15,7 +15,6 @@
    * ISSUE
    * RETURN
    * USER DETAILS
-   * 
 <div align="center">
   <h2>Design-Schemas:</h2>
 </div>
