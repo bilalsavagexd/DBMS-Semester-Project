@@ -27,7 +27,7 @@ Technology Stack Used:
 
    * BOOKS  
    * TRANSACTION
-   * AUTHENTICATION
+   * USER DETAILS
 <div align="center">
   <h2>DESIGN SCHEMATICS</h2>
   
@@ -45,12 +45,15 @@ Technology Stack Used:
 <img src="Design Schematics/TRACKING TRANSACTIONS.png" alt="Photos Schema Design">
 </div>
 
-* ### AUTHENTICATION TABLE:
+* ### USERS TABLE:
 <div align="center">
-    <img src="" alt="Comments Schema Design">
+    <img src="Design Schematics/USER_DETAILS.png" alt="Comments Schema Design">
 </div>
 
 
 
 
 <h2>ER DIAGRAM</h2>
+<div align="center">
+    <img src="ER DIAGRAM/ERDIAGRAM.png" alt="Comments Schema Design">
+</div>
