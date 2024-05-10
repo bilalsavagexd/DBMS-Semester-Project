@@ -1,141 +1,128 @@
+import tkinter as tk
+from tkinter import messagebox
 import psycopg2
-from config import config
 
-# Establish database connection
-db_connection = psycopg2.connect(
-    host="localhost",
-    database="Library_Management_System",
-    user="postgres",
-    password="2354232"
-)
+class LibraryManagementSystem:
+    def __init__(self, root):
+        self.root = root
+        self.root.title("Library Management System")
 
-def connect ():
-    connection = None
-    try:
-        params = config ()
-        print ('Connection to the postgresSQL database...')
-        connection = psycopg2.connect (**params)
+        # Establish database connection
+        self.db_connection = psycopg2.connect(
+            host="localhost",
+            database="Library_Management_System",
+            user="postgres",
+            password="2354232"
+        )
 
-# Creating a cursor
-        crsr = connection.cursor ()
-        print ('PostgresSQL database version: ')
-        crsr.execute ('SELECT version ()')
-        db_version = crsr.fetchone ()
-        print (db_version)
-        crsr.close ()
-    except (Exception, psycopg2.DatabaseError) as error:
-        print (error)
-    finally:
-        if connection is not None:
-            connection.close ()
-            print ('Database connection Terminated')
-if __name__ == "__main__":
-    connect ()
+        # Create main menu frame
+        self.main_menu_frame = tk.Frame(self.root)
+        self.main_menu_frame.pack()
 
-# Function to add a book to the database
-def add_book():
-    try:
-        book_title = input("Enter Book Title: ")
-        author = input("Enter Author: ")
-        edition = int(input("Enter Edition: "))
-        copies = int(input("Enter Copies: "))
+        # Add buttons for Student and Admin functionalities
+        self.student_button = tk.Button(self.main_menu_frame, text="Student", command=self.show_student_menu)
+        self.student_button.grid(row=0, column=0, padx=10, pady=5)
+
+        self.admin_button = tk.Button(self.main_menu_frame, text="Admin", command=self.show_admin_menu)
+        self.admin_button.grid(row=0, column=1, padx=10, pady=5)
+
+        self.exit_button = tk.Button(self.main_menu_frame, text="Exit", command=self.root.destroy)
+        self.exit_button.grid(row=1, columnspan=2, padx=10, pady=5)
+
+    def execute_query(self, query, params=None):
+        try:
+            cursor = self.db_connection.cursor()
+            if params:
+                cursor.execute(query, params)
+            else:
+                cursor.execute(query)
+            self.db_connection.commit()
+            cursor.close()
+        except psycopg2.Error as error:
+            messagebox.showerror("Error", f"Database error: {error}")
+
+    def show_student_menu(self):
+        self.clear_buttons()
+
+        self.display_books_button = tk.Button(self.main_menu_frame, text="Display Books", command=self.display_books_window)
+        self.display_books_button.grid(row=2, column=0, padx=10, pady=5)
+
+        self.issue_book_button = tk.Button(self.main_menu_frame, text="Issue Book", command=self.issue_book_window)
+        self.issue_book_button.grid(row=2, column=1, padx=10, pady=5)
+
+        self.submit_book_button = tk.Button(self.main_menu_frame, text="Submit Book", command=self.submit_book_window)
+        self.submit_book_button.grid(row=3, column=0, padx=10, pady=5)
+
+    def show_admin_menu(self):
+        self.clear_buttons()
+
+        self.display_books_button = tk.Button(self.main_menu_frame, text="Display Books", command=self.display_books_window)
+        self.display_books_button.grid(row=2, column=0, padx=10, pady=5)
+
+        self.add_book_button = tk.Button(self.main_menu_frame, text="Add Book", command=self.add_book_window)
+        self.add_book_button.grid(row=2, column=1, padx=10, pady=5)
+
+        self.delete_book_button = tk.Button(self.main_menu_frame, text="Delete Book", command=self.delete_book_window)
+        self.delete_book_button.grid(row=3, column=0, padx=10, pady=5)
+
+        self.add_user_button = tk.Button(self.main_menu_frame, text="Add New User", command=self.add_user_window)
+        self.add_user_button.grid(row=3, column=1, padx=10, pady=5)
+
+    def clear_buttons(self):
+        for widget in self.main_menu_frame.winfo_children():
+            widget.destroy()
+
+        self.student_button = tk.Button(self.main_menu_frame, text="Student", command=self.show_student_menu)
+        self.student_button.grid(row=0, column=0, padx=10, pady=5)
+
+        self.admin_button = tk.Button(self.main_menu_frame, text="Admin", command=self.show_admin_menu)
+        self.admin_button.grid(row=0, column=1, padx=10, pady=5)
+
+        self.exit_button = tk.Button(self.main_menu_frame, text="Exit", command=self.root.destroy)
+        self.exit_button.grid(row=1, columnspan=2, padx=10, pady=5)
+
+    def display_books_window(self):
+        self.display_books_window = tk.Toplevel(self.root)
+        self.display_books_window.title("Display Books")
+
+        scrollbar = tk.Scrollbar(self.display_books_window)
+        scrollbar.pack(side=tk.RIGHT, fill=tk.Y)
+
+        text_area = tk.Text(self.display_books_window, yscrollcommand=scrollbar.set)
+        text_area.pack(side=tk.LEFT, fill=tk.BOTH)
+
+        scrollbar.config(command=text_area.yview)
+
+        try:
+            cursor = self.db_connection.cursor()
+            cursor.execute("SELECT * FROM books")
+            books = cursor.fetchall()
+            cursor.close()
+            
+            if books:
+                for book in books:
+                    text_area.insert(tk.END, f"Book ID: {book[0]}, Title: {book[1]}, Author: {book[2]}, Edition: {book[3]}, Copies: {book[4]}\n")
+            else:
+                text_area.insert(tk.END, "No books found in the library.")
+        except psycopg2.Error as error:
+            messagebox.showerror("Error", f"Database error: {error}")
+
+    def add_book_window(self):
+        self.add_book_window = tk.Toplevel(self.root)
+        self.add_book_window.title("Add Book")
         
-        cursor = db_connection.cursor()
-        cursor.execute("INSERT INTO books (title, author, edition, copies) VALUES (%s, %s, %s, %s)",
-                       (book_title, author, edition, copies))
-        db_connection.commit()
-        print("Book added successfully.")
-    except (psycopg2.Error, ValueError) as error:
-        print("Error while adding book:", error)
+        tk.Label(self.add_book_window, text="Enter Book Title: ").grid(row=0, column=0, padx=10, pady=5)
+        self.book_title_entry = tk.Entry(self.add_book_window)
+        self.book_title_entry.grid(row=0, column=1, padx=10, pady=5)
 
-# Function to issue a book to a user
-def issue_book():
-    try:
-        user_regno = int(input("Enter User Registration Number: "))
-        book_id = int(input("Enter Book ID: "))
-        issue_date = input("Enter Issue Date (YYYY-MM-DD): ")
-        
-        cursor = db_connection.cursor()
-        cursor.execute("INSERT INTO transactions (user_regno, book_id, transaction_type, transaction_date) VALUES (%s, %s, %s, %s)",
-                       (user_regno, book_id, 'issue', issue_date))
-        db_connection.commit()
-        print("Book issued successfully.")
-    except (psycopg2.Error, ValueError) as error:
-        print("Error while issuing book:", error)
+        tk.Label(self.add_book_window, text="Enter Author: ").grid(row=1, column=0, padx=10, pady=5)
+        self.author_entry = tk.Entry(self.add_book_window)
+        self.author_entry.grid(row=1, column=1, padx=10, pady=5)
 
-# Function to submit a book
-def submit_book():
-    try:
-        user_regno = int(input("Enter User Registration Number: "))
-        book_id = int(input("Enter Book ID: "))
-        return_date = input("Enter Return Date (YYYY-MM-DD): ")
-        
-        cursor = db_connection.cursor()
-        cursor.execute("INSERT INTO transactions (user_regno, book_id, transaction_type, return_date) VALUES (%s, %s, %s, %s)",
-                       (user_regno, book_id, 'return', return_date))
-        db_connection.commit()
-        print("Book submitted successfully.")
-    except (psycopg2.Error, ValueError) as error:
-        print("Error while submitting book:", error)
+        tk.Label(self.add_book_window, text="Enter Edition: ").grid(row=2, column=0, padx=10, pady=5)
+        self.edition_entry = tk.Entry(self.add_book_window)
+        self.edition_entry.grid(row=2, column=1, padx=10, pady=5)
 
-# Function to delete a book from the database
-def delete_book():
-    try:
-        book_id = int(input("Enter Book ID to delete: "))
-        
-        cursor = db_connection.cursor()
-        cursor.execute("DELETE FROM books WHERE book_id = %s", (book_id,))
-        db_connection.commit()
-        print("Book deleted successfully.")
-    except (psycopg2.Error, ValueError) as error:
-        print("Error while deleting book:", error)
-
-# Function to display all books in the library
-def display_books():
-    try:
-        cursor = db_connection.cursor()
-        cursor.execute("SELECT * FROM books")
-        books = cursor.fetchall()
-        
-        for book in books:
-            print("Book ID:", book[0])
-            print("Title:", book[1])
-            print("Author:", book[2])
-            print("Edition:", book[3])
-            print("Copies:", book[4])
-            print("------------------------")
-    except psycopg2.Error as error:
-        print("Error while displaying books:", error)
-
-# Function for the main menu
-def main_menu():
-    while True:
-        print("\nLIBRARY MANAGER")
-        print("1. ADD BOOK")
-        print("2. ISSUE BOOK")
-        print("3. SUBMIT BOOK")
-        print("4. DELETE BOOK")
-        print("5. DISPLAY BOOKS")
-        print("6. EXIT")
-        
-        choice = input("Enter your choice: ")
-        
-        if choice == '1':
-            add_book()
-        elif choice == '2':
-            issue_book()
-        elif choice == '3':
-            submit_book()
-        elif choice == '4':
-            delete_book()
-        elif choice == '5':
-            display_books()
-        elif choice == '6':
-            print("Exiting the program.")
-            break
-        else:
-            print("Invalid choice. Please try again.")
-
-# Start the program by calling the main menu
-if __name__ == "__main__":
-    main_menu()
+        tk.Label(self.add_book_window, text="Enter Copies: ").grid(row=3, column=0, padx=10, pady=5)
+        self.copies_entry = tk.Entry(self.add_book_window)
+        self.copies_entry.grid(row=3, column=1, padx=10, pady=5)
