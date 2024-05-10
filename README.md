@@ -10,7 +10,7 @@
 Manual process of keeping student records, book records, account details, managing employee is very difficult. There are various problems also faced by the student in library such as finding any particular book. To eliminate this manual system, Library Management System has been developed.
 
 Core Features:
-- Searching of books
+- Displaying all available books at the library
 - Issuing and returning books
 - Deleting a specific Book
 - Adding a new Book
