@@ -126,3 +126,132 @@ class LibraryManagementSystem:
         tk.Label(self.add_book_window, text="Enter Copies: ").grid(row=3, column=0, padx=10, pady=5)
         self.copies_entry = tk.Entry(self.add_book_window)
         self.copies_entry.grid(row=3, column=1, padx=10, pady=5)
+add_button = tk.Button(self.add_book_window, text="Add", command=self.add_book)
+        add_button.grid(row=4, columnspan=2, padx=10, pady=5)
+
+    def add_book(self):
+        book_title = self.book_title_entry.get()
+        author = self.author_entry.get()
+        edition = int(self.edition_entry.get())
+        copies = int(self.copies_entry.get())
+
+        query = "INSERT INTO books (title, author, edition, copies) VALUES (%s, %s, %s, %s)"
+        params = (book_title, author, edition, copies)
+        self.execute_query(query, params)
+        messagebox.showinfo("Success", "Book added successfully.")
+        self.add_book_window.destroy()
+
+    def issue_book_window(self):
+        self.issue_book_window = tk.Toplevel(self.root)
+        self.issue_book_window.title("Issue Book")
+
+        tk.Label(self.issue_book_window, text="Enter User Registration Number: ").grid(row=0, column=0, padx=10, pady=5)
+        self.user_regno_entry = tk.Entry(self.issue_book_window)
+        self.user_regno_entry.grid(row=0, column=1, padx=10, pady=5)
+
+        tk.Label(self.issue_book_window, text="Enter Book ID: ").grid(row=1, column=0, padx=10, pady=5)
+        self.book_id_entry = tk.Entry(self.issue_book_window)
+        self.book_id_entry.grid(row=1, column=1, padx=10, pady=5)
+
+        tk.Label(self.issue_book_window, text="Enter Issue Date (YYYY-MM-DD): ").grid(row=2, column=0, padx=10, pady=5)
+        self.issue_date_entry = tk.Entry(self.issue_book_window)
+        self.issue_date_entry.grid(row=2, column=1, padx=10, pady=5)
+
+        issue_button = tk.Button(self.issue_book_window, text="Issue", command=self.issue_book)
+        issue_button.grid(row=3, columnspan=2, padx=10, pady=5)
+
+    def issue_book(self):
+        user_regno = int(self.user_regno_entry.get())
+        book_id = int(self.book_id_entry.get())
+        issue_date = self.issue_date_entry.get()
+
+        query = "INSERT INTO transactions (user_regno, book_id, transaction_type, transaction_date) VALUES (%s, %s, %s, %s)"
+        params = (user_regno, book_id, 'issue', issue_date)
+        self.execute_query(query, params)
+        messagebox.showinfo("Success", "Book issued successfully.")
+        self.issue_book_window.destroy()
+
+    def submit_book_window(self):
+        self.submit_book_window = tk.Toplevel(self.root)
+        self.submit_book_window.title("Submit Book")
+
+        tk.Label(self.submit_book_window, text="Enter User Registration Number: ").grid(row=0, column=0, padx=10, pady=5)
+        self.user_regno_entry = tk.Entry(self.submit_book_window)
+        self.user_regno_entry.grid(row=0, column=1, padx=10, pady=5)
+
+        tk.Label(self.submit_book_window, text="Enter Book ID: ").grid(row=1, column=0, padx=10, pady=5)
+        self.book_id_entry = tk.Entry(self.submit_book_window)
+        self.book_id_entry.grid(row=1, column=1, padx=10, pady=5)
+
+        tk.Label(self.submit_book_window, text="Enter Return Date (YYYY-MM-DD): ").grid(row=2, column=0, padx=10, pady=5)
+        self.return_date_entry = tk.Entry(self.submit_book_window)
+        self.return_date_entry.grid(row=2, column=1, padx=10, pady=5)
+
+        submit_button = tk.Button(self.submit_book_window, text="Submit", command=self.submit_book)
+        submit_button.grid(row=3, columnspan=2, padx=10, pady=5)
+
+    def submit_book(self):
+        user_regno = int(self.user_regno_entry.get())
+        book_id = int(self.book_id_entry.get())
+        return_date = self.return_date_entry.get()
+
+        query = "INSERT INTO transactions (user_regno, book_id, transaction_type, return_date) VALUES (%s, %s, %s, %s)"
+        params = (user_regno, book_id, 'return', return_date)
+        self.execute_query(query, params)
+        messagebox.showinfo("Success", "Book submitted successfully.")
+        self.submit_book_window.destroy()
+
+    def delete_book_window(self):
+        self.delete_book_window = tk.Toplevel(self.root)
+        self.delete_book_window.title("Delete Book")
+
+        tk.Label(self.delete_book_window, text="Enter Book ID to delete: ").grid(row=0, column=0, padx=10, pady=5)
+        self.book_id_delete_entry = tk.Entry(self.delete_book_window)
+        self.book_id_delete_entry.grid(row=0, column=1, padx=10, pady=5)
+
+        delete_button = tk.Button(self.delete_book_window, text="Delete", command=self.delete_book)
+        delete_button.grid(row=1, columnspan=2, padx=10, pady=5)
+
+    def delete_book(self):
+        book_id = int(self.book_id_delete_entry.get())
+
+        query = "DELETE FROM books WHERE book_id = %s"
+        params = (book_id,)
+        self.execute_query(query, params)
+        messagebox.showinfo("Success", "Book deleted successfully.")
+        self.delete_book_window.destroy()
+
+    def add_user_window(self):
+        self.add_user_window = tk.Toplevel(self.root)
+        self.add_user_window.title("Add New User")
+
+        tk.Label(self.add_user_window, text="Enter User Registration Number: ").grid(row=0, column=0, padx=10, pady=5)
+        self.user_regno_entry = tk.Entry(self.add_user_window)
+        self.user_regno_entry.grid(row=0, column=1, padx=10, pady=5)
+
+        tk.Label(self.add_user_window, text="Enter Name: ").grid(row=1, column=0, padx=10, pady=5)
+        self.user_name_entry = tk.Entry(self.add_user_window)
+        self.user_name_entry.grid(row=1, column=1, padx=10, pady=5)
+
+        tk.Label(self.add_user_window, text="Enter Email: ").grid(row=2, column=0, padx=10, pady=5)
+        self.email_entry = tk.Entry(self.add_user_window)
+        self.email_entry.grid(row=2, column=1, padx=10, pady=5)
+
+        add_button = tk.Button(self.add_user_window, text="Add", command=self.add_user)
+        add_button.grid(row=3, columnspan=2, padx=10, pady=5)
+
+    def add_user(self):
+        user_regno = self.user_regno_entry.get()
+        user_name = self.user_name_entry.get()
+        email = self.email_entry.get().strip('"')
+
+        query = "INSERT INTO user_details (user_regno, user_name, email) VALUES (%s, %s, %s)"
+        params = (user_regno, user_name, email)
+        self.execute_query(query, params)
+        messagebox.showinfo("Success", "User added successfully.")
+        self.add_user_window.destroy()
+
+if __name__ == "__main__":
+    root = tk.Tk()
+    app = LibraryManagementSystem(root)
+    root.mainloop()
