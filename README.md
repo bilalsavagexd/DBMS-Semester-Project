@@ -55,5 +55,5 @@ Technology Stack Used:
 
 <h2>ER DIAGRAM</h2>
 <div align="center">
-    <img src="ER DIAGRAM/ERDIAGRAM.png" alt="Comments Schema Design">
+    <img src="ER DIAGRAM/ER DIAGRAM1.png" alt="Comments Schema Design">
 </div>
