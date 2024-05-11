@@ -2,24 +2,31 @@
   <h1>LIBRARY MANAGEMENT SYSTEM</h1>
 </div>
 
-<div align="center">
-  <h2>PROJECT DISCRIPTION</h2>
-</div>
-  <p>  ABSTRACT:
+<h2>Abstract:</h2>
 
 Manual process of keeping student records, book records, account details, managing employee is very difficult. There are various problems also faced by the student in library such as finding any particular book. To eliminate this manual system, Library Management System has been developed.
 
-Core Features:
-- Displaying all available books at the library
-- Issuing and returning books
-- Deleting a specific Book
-- Adding a new Book
+<h2>Group Members:</h2>
+<ul>
+    <li>Muhammad Bilal - 2022359</li>
+    <li>Hassaan Shah - 2022385</li>
+    <li>Sohaib Khan - 2022551</li>
+</ul>
 
-Technology Stack Used:
-- Front End - Python
-- Back End - Python
-- Database - PostgresSQL </p>
-</div>
+<h2>Core Features:</h2>
+<ul>
+    <li>Display</li>
+    <li>Issuing and returning books</li>
+    <li>Deleting a specific Book</li>
+    <li>Adding a new Book</li>
+</ul>
+
+<h2>Technology Stack Used:</h2>
+<ul>
+    <li>FrontEnd - Python</li>
+    <li>BackEnd - Python</li>
+    <li>Database - PostgresSQL</li>
+</ul>
 
 <div align="center">
   <h2>KEY ENTITIES:</h2>
@@ -49,9 +56,6 @@ Technology Stack Used:
 <div align="center">
     <img src="Design Schematics/USER_DETAILS.png" alt="Comments Schema Design">
 </div>
-
-
-
 
 <h2>ER DIAGRAM</h2>
 <div align="center">
