@@ -16,7 +16,7 @@ Core Features:
 - Adding a new Book
 
 Technology Stack Used:
-- Front End - tbh
+- Front End - Python
 - Back End - Python
 - Database - PostgresSQL </p>
 </div>
